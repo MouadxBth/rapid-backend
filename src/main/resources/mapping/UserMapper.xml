@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.khadija.rapid.data.user.UserMapper">
+<!--    <resultMap id="User" type="me.khadija.rapid.data.user.User">-->
+<!--        <result property="id" column="id" jdbcType="BIGINT"/>-->
+<!--        <result property="hashedPassword" column="hashed_password" jdbcType="VARCHAR"/>-->
+<!--        <result property="firstName" column="first_name" jdbcType="VARCHAR"/>-->
+<!--        <result property="lastName" column="last_name" jdbcType="VARCHAR"/>-->
+<!--        <result property="email" column="email" jdbcType="VARCHAR"/>-->
+<!--        <result property="enabled" column="enabled" jdbcType="TINYINT"/>-->
+<!--    </resultMap>-->
+
+
+<!--    <select id="find" resultMap="User">-->
+<!--        SELECT * FROM users-->
+<!--        <where>-->
+<!--            <if test=" username != null and username != '' ">-->
+<!--                AND username = #{username}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+
+<!--    <select id="findAll" resultMap="User">-->
+<!--        SELECT *-->
+<!--        FROM users-->
+<!--    </select>-->
+
+<!--    <insert id="insert" parameterType="me.khadija.rapid.data.user.User"-->
+<!--            useGeneratedKeys="true"-->
+<!--            keyProperty="param.id">-->
+<!--        INSERT INTO users-->
+<!--        VALUES (#{user.username},-->
+<!--                #{user.hashedPassword},-->
+<!--                #{user.firstName},-->
+<!--                #{user.lastName},-->
+<!--                #{user.email},-->
+<!--                #{user.enabled})-->
+<!--    </insert>-->
+
+<!--    <update id="update" parameterType="me.khadija.rapid.data.user.User">-->
+<!--        UPDATE Students-->
+<!--        SET-->
+<!--        <if test="user.username !=null and user.username != ''">-->
+<!--            username=#{user.username},-->
+<!--        </if>-->
+<!--        <if test="user.hashedPassword !=null and user.hashedPassword != ''">-->
+<!--            hashed_password=#{user.hashedPassword},-->
+<!--        </if>-->
+<!--        first_name=#{user.firstName},-->
+<!--        last_name=#{user.lastName},-->
+<!--        email=#{user.email},-->
+<!--        enabled=#{user.enabled}-->
+<!--        WHERE id=#{id}-->
+<!--    </update>-->
+
+<!--    <delete id="delete" parameterType="me.khadija.rapid.data.user.User">-->
+<!--        DELETE-->
+<!--        FROM Students-->
+<!--        WHERE id = #{user.id}-->
+<!--    </delete>-->
+
+<!--    <update id="createTableIfNotExists">-->
+<!--        CREATE TABLE IF NOT EXISTS users (id BIGINT NOT NULL AUTO_INCREMENT,-->
+<!--                                          username varchar(255) DEFAULT NULL,-->
+<!--            hashed_password varchar(255) DEFAULT NULL,-->
+<!--            first_name varchar(128) DEFAULT NULL,-->
+<!--            last_name varchar(128) DEFAULT NULL,-->
+<!--            email varchar(255) DEFAULT NULL,-->
+<!--            enabled TINYINT DEFAULT 0,-->
+<!--            PRIMARY KEY (`id`),-->
+<!--            UNIQUE (`username`))-->
+<!--    </update>-->
+
+</mapper>
