@@ -2,7 +2,6 @@ package me.khadija.rapid.views;
 
 import me.khadija.rapid.data.user.User;
 import me.khadija.rapid.registration.RegistrationService;
-import me.khadija.rapid.registration.token.ConfirmationToken;
 import me.khadija.rapid.services.ConferenceService;
 import me.khadija.rapid.services.UserService;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -2,7 +2,6 @@ package me.khadija.rapid.services;
 
 import me.khadija.rapid.data.conference.Conference;
 import me.khadija.rapid.data.conference.ConferenceMapper;
-import me.khadija.rapid.data.user.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

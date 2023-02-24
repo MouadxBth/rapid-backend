@@ -1,11 +1,6 @@
 package me.khadija.rapid.data.user;
 
-import me.khadija.rapid.data.conference.Conference;
-import org.apache.ibatis.annotations.Many;
-import org.apache.ibatis.annotations.Select;
-
 import java.util.Objects;
-import java.util.Set;
 
 public class User {
     private long id;
