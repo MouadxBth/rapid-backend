@@ -1,4 +1,4 @@
-package me.khadija.rapid.registration.token;
+package me.khadija.rapid.data.token;
 
 import me.khadija.rapid.data.user.User;
 

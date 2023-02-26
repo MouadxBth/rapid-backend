@@ -2,8 +2,8 @@ package me.khadija.rapid.registration;
 
 import me.khadija.rapid.data.user.User;
 import me.khadija.rapid.email.EmailSender;
-import me.khadija.rapid.registration.token.ConfirmationToken;
-import me.khadija.rapid.registration.token.ConfirmationTokenService;
+import me.khadija.rapid.data.token.ConfirmationToken;
+import me.khadija.rapid.data.token.ConfirmationTokenService;
 import me.khadija.rapid.services.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

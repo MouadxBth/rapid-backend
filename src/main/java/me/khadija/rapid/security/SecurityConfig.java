@@ -9,6 +9,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -29,13 +35,40 @@ public class SecurityConfig {
     }
 
     @Bean
+    public CorsFilter corsFilter() {
+        final CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setAllowedOrigins(Collections.singletonList("http://localhost:5173"));
+        corsConfiguration.setAllowedHeaders(Arrays.asList("Origin",
+                "Access-Control-Allow-Origin",
+                "Content-Type",
+                "Accept",
+                "Authorization",
+                "Origin, Accept",
+                "X-Requested-With",
+                "Access-Control-Request-Method",
+                "Access-Control-Request-Headers"));
+        corsConfiguration.setExposedHeaders(Arrays.asList("Origin",
+                "Content-Type",
+                "Accept",
+                "Authorization",
+                "Access-Control-Allow-Origin",
+                "Access-Control-Allow-Origin",
+                "Access-Control-Allow-Credentials"));
+        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+        final UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource =
+                new UrlBasedCorsConfigurationSource();
+        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
+        return new CorsFilter(urlBasedCorsConfigurationSource);
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf()
-                .disable()
-                .authenticationProvider(authenticationProvider())
+        http.addFilter(corsFilter()).authenticationProvider(authenticationProvider())
                 .authorizeHttpRequests((requests) -> requests
-//                        .requestMatchers("/", "/home", "/api/v*/registration/**")
-//                        .permitAll()
+                        .requestMatchers("/api/v*/**")
+                        .permitAll()
                         .anyRequest()
                         .permitAll()
                 ).formLogin();
@@ -46,6 +79,7 @@ public class SecurityConfig {
 //                .logout(LogoutConfigurer::permitAll);
         return http.build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

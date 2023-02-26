@@ -1,7 +1,7 @@
 package me.khadija.rapid;
 
 import me.khadija.rapid.data.UserConferenceService;
-import me.khadija.rapid.registration.token.ConfirmationTokenService;
+import me.khadija.rapid.data.token.ConfirmationTokenService;
 import me.khadija.rapid.services.ConferenceService;
 import me.khadija.rapid.services.UserService;
 import org.springframework.boot.CommandLineRunner;
