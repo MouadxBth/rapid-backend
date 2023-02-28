@@ -4,8 +4,7 @@ import me.khadija.rapid.data.UserConferenceService;
 import me.khadija.rapid.data.conference.Conference;
 import me.khadija.rapid.data.user.User;
 import me.khadija.rapid.services.ConferenceService;
-import me.khadija.rapid.services.UserService;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;

@@ -7,6 +7,8 @@ import me.khadija.rapid.services.ConferenceService;
 import me.khadija.rapid.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("api/v1/")
 public class UserConferenceController {
@@ -53,6 +55,23 @@ public class UserConferenceController {
             throw new IllegalStateException("User " + username + " is not in conference " + conferenceName);
 
         userConferenceService.removeUserFromConference(user, conference);
+    }
+
+    @PostMapping("/conferences/add/")
+    public void addConference(
+            @RequestParam String name,
+            @RequestParam String owner,
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String description) {
+        final Optional<Conference> conference = conferenceService.find(name);
+
+        if (conference.isPresent())
+            throw new IllegalStateException("Conference " + name + " Already exists!");
+
+        final User user = userService.find(owner)
+                .orElseThrow(() -> new IllegalStateException("Could not find user with the username " + owner + " cannot set owner null"));
+
+        conferenceService.save(new Conference(name, user, title, description));
     }
 
 }
