@@ -29,7 +29,7 @@ public class UserConferenceService {
     }
 
     public User removeUserFromConference(User user, Conference conference) {
-        //userConferenceMapper.delete(user, conference);
+        userConferenceMapper.delete(user, conference);
         return user;
     }
 

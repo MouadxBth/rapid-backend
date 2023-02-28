@@ -28,8 +28,8 @@ public class ConferenceService {
         return conferenceMapper.findAll();
     }
 
-    public Optional<Conference> find(String username) {
-        return Optional.ofNullable(conferenceMapper.find(username));
+    public Optional<Conference> find(String name) {
+        return Optional.ofNullable(conferenceMapper.find(name));
     }
 
     public Conference save(Conference conference) {

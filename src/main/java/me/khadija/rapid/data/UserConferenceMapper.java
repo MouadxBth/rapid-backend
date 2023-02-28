@@ -59,9 +59,9 @@ public interface UserConferenceMapper {
             "#{conference.id}"+
             ")")
     void insert(User user, Conference conference);
-//
-//    @Delete("DELETE FROM user_conference WHERE user_id = #{user.id} AND conference_id = #{conference.id}")
-//    void delete(User user, Conference conference);
+
+    @Delete("DELETE FROM user_conference WHERE user_id = #{user.id} AND conference_id = #{conference.id}")
+    void delete(User user, Conference conference);
 
     @Update("CREATE TABLE IF NOT EXISTS user_conference (id int(11) NOT NULL AUTO_INCREMENT," +
             "user_id int(11) NOT NULL," +
