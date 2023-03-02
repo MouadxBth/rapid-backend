@@ -34,7 +34,7 @@ public class RegistrationService {
     }
 
     public String register(RegistrationRequest request) {
-        System.out.println(request);
+        System.out.println(passwordEncoder.encode(request.password()));
         final User user = new User(request.username(),
                 passwordEncoder.encode(request.password()),
                 request.firstName(),
@@ -45,7 +45,7 @@ public class RegistrationService {
             throw new IllegalStateException("User already signed up!");
         }
 
-        if (userService.fetchByEmail(user.getUsername()) != null) {
+        if (userService.fetchByEmail(user.getEmail()) != null) {
             throw new IllegalStateException("User already signed up!");
         }
 

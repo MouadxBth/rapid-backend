@@ -4,8 +4,13 @@ import me.khadija.rapid.data.UserConferenceService;
 import me.khadija.rapid.data.conference.Conference;
 import me.khadija.rapid.data.user.User;
 import me.khadija.rapid.services.UserService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
@@ -21,12 +26,15 @@ public class UserController {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final AuthenticationManager authenticationManager;
+
     public UserController(UserService userService,
                           UserConferenceService userConferenceService,
-                          PasswordEncoder passwordEncoder) {
+                          PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager) {
         this.userService = userService;
         this.userConferenceService = userConferenceService;
         this.passwordEncoder = passwordEncoder;
+        this.authenticationManager = authenticationManager;
     }
 
     @GetMapping(path = {"/all", "/", ""})
@@ -71,6 +79,18 @@ public class UserController {
     @DeleteMapping("/delete/{username}")
     public void deleteUser(@PathVariable("username")String username ){
         userService.find(username).ifPresent(userService::delete);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestParam String username, @RequestParam String password) {
+        System.out.println(username + " " + password);
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(username, password)
+        );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        System.out.println("AUTHENTICATED " + authentication);
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        return ResponseEntity.ok(new LoginResponse(userDetails.getUsername(), userDetails.getAuthorities()));
     }
 
     @PostMapping("/logout")
