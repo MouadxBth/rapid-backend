@@ -48,8 +48,9 @@ public class ConferenceController {
             @PathVariable("name") String name,
             @RequestParam(required = false) String owner,
             @RequestParam(required = false) String title,
-            @RequestParam(required = false) String description) {
-        conferenceService.update(name, owner, title, description);
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) int member_limit) {
+        conferenceService.update(name, owner, title, description, member_limit);
     }
 
     @DeleteMapping("/delete/{name}")

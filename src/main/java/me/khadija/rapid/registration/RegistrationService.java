@@ -45,6 +45,10 @@ public class RegistrationService {
             throw new IllegalStateException("User already signed up!");
         }
 
+        if (userService.fetchByEmail(user.getUsername()) != null) {
+            throw new IllegalStateException("User already signed up!");
+        }
+
         final ConfirmationToken confirmationToken = new ConfirmationToken(
                 UUID.randomUUID().toString(),
                 LocalDateTime.now(),

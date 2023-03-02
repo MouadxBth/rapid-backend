@@ -27,6 +27,18 @@ public interface UserMapper {
             @Result(property = "email", column = "email"),
             @Result(property = "enabled", column = "enabled")
     })
+    @Select("SELECT * FROM users WHERE email = #{email}")
+    User findByEmail(@Param("email") String email);
+
+    @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "username", column = "username"),
+            @Result(property = "hashedPassword", column = "hashed_password"),
+            @Result(property = "firstName", column = "first_name"),
+            @Result(property = "lastName", column = "last_name"),
+            @Result(property = "email", column = "email"),
+            @Result(property = "enabled", column = "enabled")
+    })
     @Select("SELECT * FROM users")
     List<User> findAll();
 

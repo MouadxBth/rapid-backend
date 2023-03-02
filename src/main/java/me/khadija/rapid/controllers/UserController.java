@@ -47,6 +47,11 @@ public class UserController {
         return userService.fetch(username);
     }
 
+    @GetMapping("/find_email/{email}")
+    public User byEmail(@PathVariable("email") String email){
+        return userService.fetchByEmail(email);
+    }
+
     @PutMapping("/update/{username}")
     public void updateUser(
             @PathVariable("username") String username,
@@ -66,6 +71,11 @@ public class UserController {
     @DeleteMapping("/delete/{username}")
     public void deleteUser(@PathVariable("username")String username ){
         userService.find(username).ifPresent(userService::delete);
+    }
+
+    @PostMapping("/logout")
+    public void logout() {
+
     }
 
 }

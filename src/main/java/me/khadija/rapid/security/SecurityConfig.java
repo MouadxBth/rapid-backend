@@ -71,7 +71,11 @@ public class SecurityConfig {
                         .permitAll()
                         .anyRequest()
                         .permitAll()
-                ).formLogin();
+                ).logout(logout -> {
+                    logout.logoutUrl("api/v1/users/logout")
+                            .logoutSuccessUrl("/")
+                            .invalidateHttpSession(true);
+                }).formLogin();
 //                .formLogin((form) -> form
 //                        .loginPage("/login")
 //                        .permitAll()
