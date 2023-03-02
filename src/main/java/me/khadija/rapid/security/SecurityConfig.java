@@ -3,7 +3,11 @@ package me.khadija.rapid.security;
 import me.khadija.rapid.services.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -12,6 +16,10 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistration;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.resource.PathResourceResolver;
+import org.springframework.web.servlet.resource.ResourceResolver;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -35,10 +43,16 @@ public class SecurityConfig {
     }
 
     @Bean
+    public AuthenticationManager authenticationManager(){
+        return new ProviderManager(authenticationProvider());
+    }
+
+
+    @Bean
     public CorsFilter corsFilter() {
         final CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowCredentials(true);
-        corsConfiguration.setAllowedOrigins(Collections.singletonList("http://localhost:5173"));
+//        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setAllowedOrigins(Collections.singletonList("*"));
         corsConfiguration.setAllowedHeaders(Arrays.asList("Origin",
                 "Access-Control-Allow-Origin",
                 "Content-Type",
@@ -48,13 +62,6 @@ public class SecurityConfig {
                 "X-Requested-With",
                 "Access-Control-Request-Method",
                 "Access-Control-Request-Headers"));
-        corsConfiguration.setExposedHeaders(Arrays.asList("Origin",
-                "Content-Type",
-                "Accept",
-                "Authorization",
-                "Access-Control-Allow-Origin",
-                "Access-Control-Allow-Origin",
-                "Access-Control-Allow-Credentials"));
         corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 
         final UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource =
@@ -72,10 +79,12 @@ public class SecurityConfig {
                         .anyRequest()
                         .permitAll()
                 ).logout(logout -> {
-                    logout.logoutUrl("api/v1/users/logout")
-                            .logoutSuccessUrl("/")
+                    logout
+                            .logoutSuccessUrl("/homepage.html")
+                            .logoutUrl("api/v1/users/logout")
+                            .logoutSuccessUrl("/index.html")
                             .invalidateHttpSession(true);
-                }).formLogin();
+                });
 //                .formLogin((form) -> form
 //                        .loginPage("/login")
 //                        .permitAll()

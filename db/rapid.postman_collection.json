@@ -1,0 +1,355 @@
+{
+	"info": {
+		"_postman_id": "bae9dfe8-fa52-4eae-b3bb-64a8961b1990",
+		"name": "rapid",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26061363"
+	},
+	"item": [
+		{
+			"name": "registration",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Mouad\",\n    \"lastName\": \"Bouthaich\",\n    \"password\": \"123456\",\n    \"email\": \"mouad@outlook.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/registration/register",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"registration",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "confirm",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "\"dazdazdaz\"",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/v1/registration/confirm",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"registration",
+								"confirm"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "confirmed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/registration/confirmed/someone",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"registration",
+								"confirmed",
+								"someone"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "conferences",
+			"item": [
+				{
+					"name": "conferences",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/conferences",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"conferences"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "members",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/conferences/members/someone",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"conferences",
+								"members",
+								"someone"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "byName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/conferences/find/someone",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"conferences",
+								"find",
+								"someone"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/conferences/update/someone?owner=something&title=something&description=something",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"conferences",
+								"update",
+								"someone"
+							],
+							"query": [
+								{
+									"key": "owner",
+									"value": "something"
+								},
+								{
+									"key": "title",
+									"value": "something"
+								},
+								{
+									"key": "description",
+									"value": "something"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/conferences/delete/someone",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"conferences",
+								"delete",
+								"someone"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/users",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "conferences",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/users/conferences/someone",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"conferences",
+								"someone"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "byUsername",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/users/find/someone",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"find",
+								"someone"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/users/update/someone?firstName=something&lastName=something&email=something@outlook.com&password=secret&enabled=true",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"update",
+								"someone"
+							],
+							"query": [
+								{
+									"key": "firstName",
+									"value": "something"
+								},
+								{
+									"key": "lastName",
+									"value": "something"
+								},
+								{
+									"key": "email",
+									"value": "something@outlook.com"
+								},
+								{
+									"key": "password",
+									"value": "secret"
+								},
+								{
+									"key": "enabled",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/delete/someone",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"delete",
+								"someone"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
