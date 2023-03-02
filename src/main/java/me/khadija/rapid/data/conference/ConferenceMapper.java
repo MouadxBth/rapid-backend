@@ -15,6 +15,7 @@ public interface ConferenceMapper {
             @Result(property = "name", column = "name"),
             @Result(property = "title", column = "title"),
             @Result(property = "description", column = "description", jdbcType = JdbcType.LONGVARCHAR),
+            @Result(property = "member_limit", column = "member_limit"),
             @Result(property = "owner",
                     column = "owner",
                     javaType = User.class,
@@ -29,6 +30,7 @@ public interface ConferenceMapper {
             @Result(property = "name", column = "name"),
             @Result(property = "title", column = "title"),
             @Result(property = "description", column = "description", jdbcType = JdbcType.LONGVARCHAR),
+            @Result(property = "member_limit", column = "member_limit"),
             @Result(property = "owner",
                     column = "owner",
                     javaType = User.class,
@@ -40,14 +42,16 @@ public interface ConferenceMapper {
     @Insert("INSERT INTO conferences VALUES( #{id} , #{name}," +
             "#{owner.username}," +
             "#{title}," +
-            "#{description}" +
+            "#{description}," +
+            "#{member_limit}" +
             ")")
     void insert(Conference conference);
 
     @Update("UPDATE conferences SET name = #{name}," +
             "owner = #{owner.username}," +
             "title = #{title}," +
-            "description = #{description} " +
+            "description = #{description}, " +
+            "member_limit = #{member_count} " +
             "WHERE id = #{id}")
     void update(Conference conference);
 
@@ -59,6 +63,7 @@ public interface ConferenceMapper {
             "owner varchar(255) DEFAULT NULL," +
             "title varchar(255) DEFAULT NULL," +
             "description varchar(128) DEFAULT NULL,"+
+            "member_limit int DEFAULT -1,"+
             "PRIMARY KEY (`id`)," +
             "FOREIGN KEY (owner) REFERENCES users(username)," +
             "UNIQUE (`name`)" +

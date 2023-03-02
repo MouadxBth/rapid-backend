@@ -11,15 +11,17 @@ public class Conference {
     private User owner;
     private String title;
     private String description;
+    private int member_limit;
 
     public Conference() {
     }
 
-    public Conference(String name, User owner, String title, String description) {
+    public Conference(String name, User owner, String title, String description, int member_limit) {
         this.name = name;
         this.owner = owner;
         this.title = title;
         this.description = description;
+        this.member_limit = member_limit;
     }
 
     @Override
@@ -27,9 +29,10 @@ public class Conference {
         return "Conference{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", owner=" + owner.toString() +
+                ", owner=" + owner +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
+                ", member_limit=" + member_limit +
                 '}';
     }
 
@@ -85,4 +88,11 @@ public class Conference {
         this.description = description;
     }
 
+    public int getMember_limit() {
+        return member_limit;
+    }
+
+    public void setMember_limit(int member_limit) {
+        this.member_limit = member_limit;
+    }
 }

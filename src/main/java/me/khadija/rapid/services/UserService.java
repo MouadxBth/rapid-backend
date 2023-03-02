@@ -42,6 +42,10 @@ public class UserService implements UserDetailsService {
         return userMapper.find(username);
     }
 
+    public User fetchByEmail(String email) {
+        return userMapper.findByEmail(email);
+    }
+
     public List<User> fetchAll() {
         return userMapper.findAll();
     }

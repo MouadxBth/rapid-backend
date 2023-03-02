@@ -45,7 +45,8 @@ public class ConferenceService {
     public void update(String name,
                        String ownerUsername,
                        String title,
-                       String description) {
+                       String description,
+                       int member_limit) {
         find(name).ifPresent(conference -> {
             if (ownerUsername != null && !ownerUsername.isBlank()) {
                 conference.setOwner(userMapper.find(ownerUsername));
@@ -56,6 +57,10 @@ public class ConferenceService {
             if (description != null && !description.isBlank()) {
                 conference.setDescription(description);
             }
+            if (member_limit == 0) {
+                throw new IllegalStateException("Cannot update the member limit to 0");
+            }
+            conference.setMember_limit(member_limit);
             update(conference);
         });
     }

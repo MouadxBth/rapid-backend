@@ -38,6 +38,11 @@ public class UserConferenceController {
         if (userConferenceService.isInConference(user, conference))
             throw new IllegalStateException("User " + username + " is already in conference " + conferenceName);
 
+        if (conference.getMember_limit() > 0
+                && userConferenceService.findMembers(conference).size() >= conference.getMember_limit()) {
+            throw new IllegalStateException("Cannot exceed the conference member limit");
+        }
+
         userConferenceService.addUserToConference(user, conference);
     }
 
@@ -62,7 +67,8 @@ public class UserConferenceController {
             @RequestParam String name,
             @RequestParam String owner,
             @RequestParam(required = false) String title,
-            @RequestParam(required = false) String description) {
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) int member_limit) {
         final Optional<Conference> conference = conferenceService.find(name);
 
         if (conference.isPresent())
@@ -71,7 +77,7 @@ public class UserConferenceController {
         final User user = userService.find(owner)
                 .orElseThrow(() -> new IllegalStateException("Could not find user with the username " + owner + " cannot set owner null"));
 
-        conferenceService.save(new Conference(name, user, title, description));
+        conferenceService.save(new Conference(name, user, title, description, member_limit == 0 ? -1 : member_limit));
     }
 
 }
