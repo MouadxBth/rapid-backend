@@ -1,10 +1,9 @@
-package me.khadija.rapid.registration;
+package me.khadija.rapid.services;
 
-import me.khadija.rapid.data.user.User;
+import me.khadija.rapid.models.User;
 import me.khadija.rapid.email.EmailSender;
-import me.khadija.rapid.data.token.ConfirmationToken;
-import me.khadija.rapid.data.token.ConfirmationTokenService;
-import me.khadija.rapid.services.UserService;
+import me.khadija.rapid.models.ConfirmationToken;
+import me.khadija.rapid.registration.RegistrationRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -57,8 +56,8 @@ public class RegistrationService {
                 user
         );
 
-        confirmationTokenService.save(confirmationToken);
         userService.save(user);
+        confirmationTokenService.save(confirmationToken);
 
         String link = "http://localhost:8080/api/v1/registration/confirm?token=" + confirmationToken.getToken();
         emailSender.send(
@@ -83,6 +82,9 @@ public class RegistrationService {
             }
             confirmationToken.setConfirmedAt(LocalDateTime.now());
             confirmationTokenService.update(confirmationToken);
+
+            confirmationTokenService.fetch(confirmationToken.getUser())
+                            .forEach(confirmationTokenService::delete);
 
             confirmationToken.getUser().setEnabled(true);
             userService.update(confirmationToken.getUser());

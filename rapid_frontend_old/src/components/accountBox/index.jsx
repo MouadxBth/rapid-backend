@@ -23,8 +23,7 @@ const TopContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 0 1.8em;
-  padding-bottom: 5em;
+  padding: 0 1.8em 5em;
 `;
 
 const BackDrop = styled(motion.div)`
@@ -37,11 +36,12 @@ const BackDrop = styled(motion.div)`
   transform: rotate(60deg);
   top: -290px;
   left: -70px;
-  background: rgb(241, 196, 15);
+  background: rgb(255, 0, 0);
+ 
   background: linear-gradient(
     58deg,
-    rgba(241, 196, 15, 1) 20%,
-    rgba(243, 172, 18, 1) 100%
+    rgba(245, 128, 0, 1) 20%,
+    rgba(255, 128, 0, 1) 100%
   );
 `;
 
@@ -65,8 +65,7 @@ const SmallText = styled.h5`
   font-weight: 500;
   font-size: 11px;
   z-index: 10;
-  margin: 0;
-  margin-top: 7px;
+  margin: 7px 0 0;
 `;
 
 const InnerContainer = styled.div`
@@ -97,7 +96,7 @@ const expandingTransition = {
   stiffness: 30,
 };
 
-export function AccountBox(props) {
+export function AccountBox() {
   const [isExpanded, setExpanded] = useState(false);
   const [active, setActive] = useState("signin");
 

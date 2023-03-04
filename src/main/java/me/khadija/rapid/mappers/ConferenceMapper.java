@@ -1,6 +1,7 @@
-package me.khadija.rapid.data.conference;
+package me.khadija.rapid.mappers;
 
-import me.khadija.rapid.data.user.User;
+import me.khadija.rapid.models.Conference;
+import me.khadija.rapid.models.User;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 
@@ -16,10 +17,11 @@ public interface ConferenceMapper {
             @Result(property = "title", column = "title"),
             @Result(property = "description", column = "description", jdbcType = JdbcType.LONGVARCHAR),
             @Result(property = "member_limit", column = "member_limit"),
+            @Result(property = "privateConference", column = "is_private"),
             @Result(property = "owner",
                     column = "owner",
                     javaType = User.class,
-                    one = @One(select = "me.khadija.rapid.data.user.UserMapper.find")
+                    one = @One(select = "me.khadija.rapid.mappers.UserMapper.find")
             )
     })
     List<Conference> findAll();
@@ -31,10 +33,11 @@ public interface ConferenceMapper {
             @Result(property = "title", column = "title"),
             @Result(property = "description", column = "description", jdbcType = JdbcType.LONGVARCHAR),
             @Result(property = "member_limit", column = "member_limit"),
+            @Result(property = "privateConference", column = "is_private"),
             @Result(property = "owner",
                     column = "owner",
                     javaType = User.class,
-                    one = @One(select = "me.khadija.rapid.data.user.UserMapper.find")
+                    one = @One(select = "me.khadija.rapid.mappers.UserMapper.find")
             )
     })
     Conference find(@Param("name") String name);
@@ -43,7 +46,8 @@ public interface ConferenceMapper {
             "#{owner.username}," +
             "#{title}," +
             "#{description}," +
-            "#{member_limit}" +
+            "#{member_limit}," +
+            "#{privateConference}" +
             ")")
     void insert(Conference conference);
 
@@ -51,7 +55,8 @@ public interface ConferenceMapper {
             "owner = #{owner.username}," +
             "title = #{title}," +
             "description = #{description}, " +
-            "member_limit = #{member_count} " +
+            "member_limit = #{member_count}, " +
+            "is_private = #{privateConference} " +
             "WHERE id = #{id}")
     void update(Conference conference);
 
@@ -60,14 +65,18 @@ public interface ConferenceMapper {
 
     @Update("CREATE TABLE IF NOT EXISTS conferences (id int(11) NOT NULL AUTO_INCREMENT," +
             "name varchar(255) DEFAULT NULL," +
-            "owner varchar(255) DEFAULT NULL," +
+            "owner int(11) DEFAULT NULL," +
             "title varchar(255) DEFAULT NULL," +
-            "description varchar(128) DEFAULT NULL,"+
-            "member_limit int DEFAULT -1,"+
+            "description varchar(128) DEFAULT NULL," +
+            "member_limit int DEFAULT -1," +
+            "is_private tinyint DEFAULT 0,"+
             "PRIMARY KEY (`id`)," +
-            "FOREIGN KEY (owner) REFERENCES users(username)," +
+            "FOREIGN KEY (owner) REFERENCES users(id) ON DELETE CASCADE," +
             "UNIQUE (`name`)" +
             ")")
     void createTableIfNotExists();
+
+    @Update("DROP TABLE IF EXISTS conferences")
+    void dropTableIfExists();
 
 }

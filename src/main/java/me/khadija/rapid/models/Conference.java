@@ -1,9 +1,6 @@
-package me.khadija.rapid.data.conference;
-
-import me.khadija.rapid.data.user.User;
+package me.khadija.rapid.models;
 
 import java.util.Objects;
-import java.util.Set;
 
 public class Conference {
     private long id;
@@ -13,15 +10,28 @@ public class Conference {
     private String description;
     private int member_limit;
 
+    private boolean privateConference;
+
     public Conference() {
     }
 
-    public Conference(String name, User owner, String title, String description, int member_limit) {
+    public Conference(String name, User owner,
+                      String title, String description,
+                      int member_limit, boolean privateConference) {
         this.name = name;
         this.owner = owner;
         this.title = title;
         this.description = description;
         this.member_limit = member_limit;
+        this.privateConference = privateConference;
+    }
+
+    public boolean isPrivateConference() {
+        return privateConference;
+    }
+
+    public void setPrivateConference(boolean privateConference) {
+        this.privateConference = privateConference;
     }
 
     @Override
@@ -33,6 +43,7 @@ public class Conference {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", member_limit=" + member_limit +
+                ", privateConference=" + privateConference +
                 '}';
     }
 
@@ -42,11 +53,14 @@ public class Conference {
         if (o == null || getClass() != o.getClass()) return false;
         Conference that = (Conference) o;
         return id == that.id
+                && member_limit == that.member_limit
+                && privateConference == that.privateConference
                 && Objects.equals(name, that.name)
                 && Objects.equals(owner, that.owner)
                 && Objects.equals(title, that.title)
                 && Objects.equals(description, that.description);
     }
+
 
     public long getId() {
         return id;

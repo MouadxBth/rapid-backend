@@ -1,4 +1,4 @@
-package me.khadija.rapid.data.user;
+package me.khadija.rapid.models;
 
 import java.util.Objects;
 

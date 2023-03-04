@@ -1,7 +1,4 @@
-package me.khadija.rapid.data;
-
-import me.khadija.rapid.data.conference.Conference;
-import me.khadija.rapid.data.user.User;
+package me.khadija.rapid.models;
 
 public class UserConference {
 

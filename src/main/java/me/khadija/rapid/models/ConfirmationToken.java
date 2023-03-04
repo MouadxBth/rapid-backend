@@ -1,6 +1,4 @@
-package me.khadija.rapid.data.token;
-
-import me.khadija.rapid.data.user.User;
+package me.khadija.rapid.models;
 
 import java.time.LocalDateTime;
 

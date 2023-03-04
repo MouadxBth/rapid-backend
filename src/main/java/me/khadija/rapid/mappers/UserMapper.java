@@ -1,5 +1,6 @@
-package me.khadija.rapid.data.user;
+package me.khadija.rapid.mappers;
 
+import me.khadija.rapid.models.User;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -71,8 +72,12 @@ public interface UserMapper {
             "last_name varchar(128) DEFAULT NULL," +
             "enabled tinyint DEFAULT 0," +
             "PRIMARY KEY (`id`)," +
-            "UNIQUE (`username`)" +
+            "UNIQUE (`username`)," +
+            "UNIQUE (`email`)" +
             ")")
     void createTableIfNotExists();
+
+    @Update("DROP TABLE IF EXISTS users")
+    void dropTableIfExists();
 
 }

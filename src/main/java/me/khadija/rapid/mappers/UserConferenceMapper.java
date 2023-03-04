@@ -1,7 +1,7 @@
-package me.khadija.rapid.data;
+package me.khadija.rapid.mappers;
 
-import me.khadija.rapid.data.conference.Conference;
-import me.khadija.rapid.data.user.User;
+import me.khadija.rapid.models.Conference;
+import me.khadija.rapid.models.User;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 
@@ -50,7 +50,7 @@ public interface UserConferenceMapper {
             @Result(property = "owner",
                     column = "owner",
                     javaType = User.class,
-                    one = @One(select = "me.khadija.rapid.data.user.UserMapper.find")
+                    one = @One(select = "me.khadija.rapid.mappers.UserMapper.find")
             )
     })
     Set<Conference> findConferences(User user);
@@ -67,9 +67,12 @@ public interface UserConferenceMapper {
             "user_id int(11) NOT NULL," +
             "conference_id int(11) NOT NULL,"+
             "PRIMARY KEY (`id`)," +
-            "FOREIGN KEY (user_id) REFERENCES users(id)," +
-            "FOREIGN KEY (conference_id) REFERENCES conferences(id)" +
+            "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE," +
+            "FOREIGN KEY (conference_id) REFERENCES conferences(id) ON DELETE CASCADE" +
             ")")
     void createTableIfNotExists();
+
+    @Update("DROP TABLE IF EXISTS user_conference")
+    void dropTableIfExists();
 
 }

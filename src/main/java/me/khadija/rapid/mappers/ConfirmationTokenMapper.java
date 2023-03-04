@@ -1,6 +1,7 @@
-package me.khadija.rapid.data.token;
+package me.khadija.rapid.mappers;
 
-import me.khadija.rapid.data.user.User;
+import me.khadija.rapid.models.ConfirmationToken;
+import me.khadija.rapid.models.User;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public interface ConfirmationTokenMapper {
             @Result(property = "user",
                     column = "user",
                     javaType = User.class,
-                    one = @One(select = "me.khadija.rapid.data.user.UserMapper.find")
+                    one = @One(select = "me.khadija.rapid.mappers.UserMapper.find")
             )
     })
     List<ConfirmationToken> findUser(User user);
@@ -33,7 +34,7 @@ public interface ConfirmationTokenMapper {
             @Result(property = "user",
                     column = "user",
                     javaType = User.class,
-                    one = @One(select = "me.khadija.rapid.data.user.UserMapper.find")
+                    one = @One(select = "me.khadija.rapid.mappers.UserMapper.find")
             )
     })
     List<ConfirmationToken> findAll();
@@ -48,7 +49,7 @@ public interface ConfirmationTokenMapper {
             @Result(property = "user",
                     column = "user",
                     javaType = User.class,
-                    one = @One(select = "me.khadija.rapid.data.user.UserMapper.find")
+                    one = @One(select = "me.khadija.rapid.mappers.UserMapper.find")
             )
     })
     ConfirmationToken find(String token);
@@ -81,10 +82,14 @@ public interface ConfirmationTokenMapper {
             "created_at DATETIME NOT NULL," +
             "expires_at DATETIME NOT NULL," +
             "confirmed_at DATETIME DEFAULT NULL," +
-            "user VARCHAR(255) NOT NULL," +
+            "user int NOT NULL," +
             "PRIMARY KEY (`id`)," +
+            "FOREIGN KEY (user) REFERENCES users(id) ON DELETE CASCADE," +
             "UNIQUE(`token`)" +
             ")")
     void createTableIfNotExists();
+
+    @Update("DROP TABLE IF EXISTS confirmation_tokens")
+    void dropTableIfExists();
 
 }

@@ -1,7 +1,8 @@
-package me.khadija.rapid.data;
+package me.khadija.rapid.services;
 
-import me.khadija.rapid.data.conference.Conference;
-import me.khadija.rapid.data.user.User;
+import me.khadija.rapid.mappers.UserConferenceMapper;
+import me.khadija.rapid.models.Conference;
+import me.khadija.rapid.models.User;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -23,14 +24,12 @@ public class UserConferenceService {
         return userConferenceMapper.findConferences(user);
     }
 
-    public User addUserToConference(User user, Conference conference) {
+    public void addUserToConference(User user, Conference conference) {
         userConferenceMapper.insert(user, conference);
-        return user;
     }
 
-    public User removeUserFromConference(User user, Conference conference) {
+    public void removeUserFromConference(User user, Conference conference) {
         userConferenceMapper.delete(user, conference);
-        return user;
     }
 
     public boolean isInConference(User user, Conference conference) {
@@ -39,5 +38,9 @@ public class UserConferenceService {
 
     public void createTable() {
         userConferenceMapper.createTableIfNotExists();
+    }
+
+    public void dropTable() {
+        userConferenceMapper.dropTableIfExists();
     }
 }

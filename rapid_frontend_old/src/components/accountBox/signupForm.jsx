@@ -27,7 +27,7 @@ export function SignupForm(props) {
       <MutedLink href="#">
         Already have an account?
         <BoldLink href="#" onClick={switchToSignin}>
-          Signin
+          Login
         </BoldLink>
       </MutedLink>
     </BoxContainer>
